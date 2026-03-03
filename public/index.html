@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ventana de Johari</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div id="landing-page" class="page active">
+    <div class="landing-container">
+      <h1>Ventana de Johari</h1>
+      <p>Crea tu propia ventana de Johari para que tu y tus compañeros descubran que saben de ti y que se desconoce</p>
+      <div class="button-group">
+        <button class="btn btn-primary" onclick="goToCreateRoom()">Crear ventana</button>
+        <button class="btn btn-secondary" onclick="goToJoinRoom()">Unirse a una ventana</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="create-room-page" class="page">
+    <div class="room-container">
+      <button class="back-btn" onclick="goToLanding()">← Volver</button>
+      <h2>Crear sala</h2>
+      <div class="create-form">
+        <label for="username">Escribe tu nombre:</label>
+        <input type="text" id="username" placeholder="Tu nombre" maxlength="30">
+        <button class="btn btn-primary" onclick="createRoom()">Crear</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="join-room-page" class="page">
+    <div class="room-container">
+      <button class="back-btn" onclick="goToLanding()">← Volver</button>
+      <h2>Unirse a sala</h2>
+      <div class="join-form">
+        <label for="username-join">Escribe tu nombre:</label>
+        <input type="text" id="username-join" placeholder="Tu nombre" maxlength="30">
+        <label for="room-code">Código de sala:</label>
+        <input type="text" id="room-code" placeholder="Código" maxlength="6">
+        <button class="btn btn-primary" onclick="joinRoom()">Unirse</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="chat-room-page" class="page">
+    <div class="room-container full-height layout-with-sidebar">
+      <div class="sidebar">
+        <div class="sidebar-top">
+          <button class="back-btn" onclick="leaveRoom()">← Salir</button>
+          <h3 id="room-title">Sala</h3>
+          <h4 id="room-subtitle" class="room-subtitle"></h4>
+          <div id="room-code-display" class="room-code-display"></div>
+        </div>
+        <div class="participants">
+          <h4>Participantes (<span id="member-count">0</span>)</h4>
+          <ul id="members-list" class="members-list sidebar-list"></ul>
+        </div>
+        <div id="host-controls" class="host-controls" style="display:none">
+          <button id="build-window-btn" class="btn btn-secondary" onclick="buildWindow()">Construir ventana</button>
+        </div>
+      </div>
+
+      <div class="center-area">
+        <div class="chat-section">
+          <div id="messages" class="messages"></div>
+          <div class="input-group">
+            <input type="text" id="message-input" placeholder="Escribe un mensaje..." onkeypress="handleKeyPress(event)">
+            <button class="btn btn-primary" onclick="sendMessage()">Enviar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="intermediate-modal" class="intermediate-modal" style="display:none">
+    <div class="intermediate-content">
+      <h2 id="intermediate-title">Construyendo tu ventana...</h2>
+      <p id="intermediate-text">Se está recopilando la información de todos los participantes.</p>
+      <button id="confirm-btn" class="btn btn-primary" onclick="confirmWindow()">Confirmar construcción</button>
+    </div>
+  </div>
+
+  <div id="window-modal" class="window-modal" style="display:none">
+    <div class="window-content">
+      <h2 id="window-title">Ventana</h2>
+      <div class="window-grid" id="window-grid">
+        <div class="cell" id="yo-publico"><h4>Yo Público</h4><div class="cell-content" id="yo-publico-content"></div></div>
+        <div class="cell" id="yo-ciego"><h4>Yo Ciego</h4><div class="cell-content" id="yo-ciego-content"></div></div>
+        <div class="cell" id="yo-oculto"><h4>Yo Oculto</h4><div class="cell-content" id="yo-oculto-content"></div></div>
+        <div class="cell" id="yo-desconocido"><h4>Yo Desconocido</h4><div class="cell-content" id="yo-desconocido-content"></div></div>
+      </div>
+      <div style="text-align:center;margin-top:12px;">
+        <button class="btn btn-secondary" onclick="downloadWindowImage()">Descargar imagen</button>
+        <button class="btn btn-primary" onclick="closeWindowModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
